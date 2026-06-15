@@ -1,0 +1,22 @@
+{
+  "short_name": "જ્ઞાન મંજુષા",
+  "name": "જૈન ધર્મ જ્ઞાન મંજુષા",
+  "description": "કોઈપણ નંબર પર ક્લિક કરો અને જ્ઞાન મેળવો",
+  "icons": [
+    {
+      "src": "photo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "photo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#111827",
+  "theme_color": "#ffaa00",
+  "display": "standalone",
+  "orientation": "portrait"
+}
