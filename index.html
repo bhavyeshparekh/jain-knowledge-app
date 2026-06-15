@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>જૈન ધર્મ જ્ઞાન મંજુષા</title>
+    <style>
+        /* CSS VARIABLE ARCHITECTURE FOR DYNAMIC THEMING */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            --container-bg: rgba(255, 255, 255, 0.05);
+            --container-border: rgba(255, 255, 255, 0.1);
+            --header-title: #ffaa00;
+            --header-sub: #e5e7eb;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --text-dark: #1f2937;
+            --text-item-border: #f3f4f6;
+            --text-item-color: #374151;
+            --primary: #ff5500;
+            --btn-home-bg: #ffaa00;
+            --btn-home-text: #111827;
+            --toggle-bg: rgba(255, 255, 255, 0.1);
+            --img-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* TRADITIONAL LIGHT THEME CONFIGURATION */
+        body.light-theme {
+            --bg-gradient: linear-gradient(135deg, #fcf8f2 0%, #f5e6d3 100%);
+            --container-bg: rgba(128, 0, 32, 0.04);
+            --container-border: rgba(128, 0, 32, 0.15);
+            --header-title: #800020; /* Deep Traditional Maroon */
+            --header-sub: #5a3e2b;    /* Warm Earthy Brown */
+            --card-bg: #fffdfa;
+            --text-dark: #800020;
+            --text-item-border: #f3e6d5;
+            --text-item-color: #4a2c11;
+            --primary: #800020;
+            --btn-home-bg: #800020;
+            --btn-home-text: #ffffff;
+            --toggle-bg: rgba(128, 0, 32, 0.08);
+            --img-shadow: rgba(128, 0, 32, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--container-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid var(--container-border);
+            margin-top: 10px;
+            position: relative;
+        }
+
+        /* Theme Switcher Button */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--toggle-bg);
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .theme-toggle-btn:active {
+            transform: scale(0.9);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-right: 35px;
+        }
+
+        /* Photo/Logo Styling - Updated for full width and balanced layout height */
+        .header-photo-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header-photo {
+            width: 100%;
+            height: 200px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px var(--img-shadow);
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            color: var(--header-title);
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: var(--header-sub);
+        }
+
+        /* Nav Controls */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 16px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-back {
+            background: #4b5563;
+            color: #ffffff;
+        }
+
+        .btn-home {
+            background: var(--btn-home-bg);
+            color: var(--btn-home-text);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Bottom Back Navigation Component */
+        .bottom-back-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .btn-bottom-back {
+            background: var(--btn-home-bg);
+            color: var(--btn-home-text);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn-bottom-back:active {
+            transform: scale(0.9);
+        }
+
+        /* Views */
+        .view {
+            display: none;
+            animation: cubic-bezier(0.4, 0, 0.2, 1) fadeIn 0.35s forwards;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Home Grid & Tiles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .tile {
+            border-radius: 20px;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+        }
+
+        /* Keeps vibrant colors in light theme, just softens the tile drop shadow slightly */
+        body.light-theme .tile {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .tile:active {
+            transform: scale(0.9);
+        }
+
+        /* Sub Page: Main List View */
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .list-item {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            padding: 18px 20px;
+            border-radius: 18px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            border-left: 6px solid #ffaa00;
+            gap: 10px;
+        }
+
+        body.light-theme .list-item {
+            border-left: 6px solid #800020;
+        }
+
+        .list-item:active {
+            transform: translateX(4px);
+        }
+
+        .list-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .list-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .arrow-icon {
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        /* Universal Speaker Button Style */
+        .speak-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .speak-btn:hover {
+            background: rgba(255, 85, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        body.light-theme .speak-btn:hover {
+            background: rgba(128, 0, 32, 0.08);
+        }
+
+        .speak-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* Sub Page: Sublist Content View */
+        .sublist-card {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-top: 8px solid #ff5500;
+        }
+
+        body.light-theme .sublist-card {
+            border-top: 8px solid #800020;
+        }
+
+        .sublist-header {
+            font-size: 1.4rem;
+            color: #ff5500;
+            margin-bottom: 18px;
+            border-bottom: 2px dashed var(--text-item-border);
+            padding-bottom: 12px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        body.light-theme .sublist-header {
+            color: #800020;
+        }
+
+        .sublist-content {
+            list-style: none;
+        }
+
+        .sublist-content li {
+            padding: 12px 6px;
+            border-bottom: 1px solid var(--text-item-border);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-item-color);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sublist-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .sublist-content li:last-child {
+            border-bottom: none;
+        }
+
+        .footer-credit {
+            text-align: center;
+            color: var(--header-sub);
+            opacity: 0.7;
+            font-size: 0.85rem;
+            margin-top: 25px;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="થીમ બદલો">🌙</button>
+
+    <header id="main-header">
+        <!-- Added photo placeholder container here -->
+        <div class="header-photo-container">
+            <img src="photo.jpg" alt="જૈન ધર્મ પ્રતીક" class="header-photo">
+        </div>
+        <h1>જૈન ધર્મ જ્ઞાન મંજુષા</h1>
+        <p>કોઈપણ નંબર પર ક્લિક કરો અને જ્ઞાન મેળવો</p>
+    </header>
+
+    <div class="nav-controls" id="nav-bar" style="display: none;">
+        <button class="btn btn-back" onclick="goBack()"> BACK</button>
+        <button class="btn btn-home" onclick="goHome()"> HOME</button>
+    </div>
+
+    <div id="home-view" class="view active">
+        <div class="grid" id="number-grid"></div>
+    </div>
+
+    <div id="main-list-view" class="view">
+        <div class="list-container" id="main-list-content"></div>
+        <!-- Bottom Back Arrow Component -->
+        <div class="bottom-back-container">
+            <button class="btn-bottom-back" onclick="goBack()" title="પાછળ જાઓ">←</button>
+        </div>
+    </div>
+
+    <div id="sublist-view" class="view">
+        <div class="sublist-card">
+            <div class="sublist-header" id="sublist-title"></div>
+            <ul class="sublist-content" id="sublist-items"></ul>
+        </div>
+        <!-- Bottom Back Arrow Component -->
+        <div class="bottom-back-container">
+            <button class="btn-bottom-back" onclick="goBack()" title="પાછળ જાઓ">←</button>
+        </div>
+    </div>
+
+    <div class="footer-credit">જૈન ધર્મ દીપક</div>
+</div>
+
+<script>
+    const data = {
+        1: [
+            { title: "આત્મા", items: ["શુદ્ધ ચૈતન્યમય આત્મા"] },
+            { title: "એક ઇન્દ્રિય જીવ", items: ["સ્પર્શેન્દ્રિય", "(પૃથ્વી, પાણી, અગ્નિ, હવા, અને ઝાડ/વનસ્પતિ)"] },
+            { title: "એકાક્ષરી", items: ["ઓમકાર ધ્વનિ"] }
+        ],
+        2: [
+            { title: "બે ઇન્દ્રિય જીવ", items: ["સ્પર્શેન્દ્રિય", "રસનેન્દ્રિય", "(કૃમિ/અળસિયાં, છીપલાં, અને જળો)"] }
+        ],
+        3: [
+            { title: "રત્નત્રય", items: ["સમ્યક્ દર્શન", "સમ્યક્ જ્ઞાન", "સમ્યક્ ચારિત્ર"] },
+            { title: "ત્રણ લોક", items: ["અધોલોક", "મધ્યલોક", "ઉર્ધ્વલોક"] },
+            { title: "ત્રણ ઇન્દ્રિય જીવ", items: ["સ્પર્શેન્દ્રિય", "રસનેન્દ્રિય", "ઘ્રાણેન્દ્રિય", "(કીડી, ખટમલ, અને જીવાત)"] },
+            { title: "ત્રણ ગુપ્તિ", items: ["મનગુપ્તિ", "વચનગુપ્તિ", "કાયા ગુપ્તિ"] }
+        ],
+        4: [
+            { title: "ગતિ", items: ["દેવ", "મનુષ્ય", "તિર્યંચ", "નરક"] },
+            { title: "ચાર ઇન્દ્રિય જીવ", items: ["સ્પર્શેન્દ્રિય", "રસનેન્દ્રિય", "ઘ્રાણેન્દ્રિય", "ચક્ષુરેન્દ્રિય", "(મધમાખી/ભમરા, મચ્છર, માખી, અને વીંછી)"] },
+            { title: "કષાય", items: ["ક્રોધ", "માન", "માયા", "防 લોભ"] },
+            { title: "ચાર તીર્થ", items: ["મુનિ", "સાધ્વી", "શ્રાવક", "શ્રાવિકા"] }
+        ],
+        5: [
+            { title: "પંચપરમેષ્ઠી ભગવાન", items: ["અરિહંત", "સિદ્ધ", "આચાર્ય", "ઉપાધ્યાય", "સાધુ"] },
+            { title: "પાંચ ઇન્દ્રિયો જીવ", items: ["સ્પર્શેન્દ્રિય", "રસનેન્દ્રિય", "ઘ્રાણેન્દ્રિય", "ચક્ષુરેન્દ્રિય", "શ્રોત્રેન્દ્રિય", "(પશુ, પક્ષી, દેવ, મનુષ્ય અને નારકી)"] },
+            { title: "પંચપરમાગમ", items: ["સમયસાર", "પ્રવચનસાર", "નિયમસાર", "પંચાસ્તિકાય", "અષ્ટપાહુડ"] },
+            { title: "જ્ઞાન", items: ["મતિજ્ઞાન", "શ્રુતજ્ઞાન", "અવધિજ્ઞાન", "મનઃપર્યયજ્ઞાન", "કેવળજ્ઞાન"] },
+            { title: "પાંચ બાલયતિ તીર્થંકર", items: ["શ્રી વાસુપૂજ્ય સ્વામી", "શ્રી મલ્લિનાથ ભગવાન", "શ્રી નેમિનાથ ભગવાન", "શ્રી પાર્શ્વનાથ ભગવાન", "શ્રી મહાવીર સ્વામી"] },
+            { title: "પાંચ મહાવ્રત", items: ["અહિંસા", "સત્ય", "અચોર્ય", "બ્રહ્મચર્ય", "અપરિગ્રહ"] }
+        ],
+        6: [
+            { title: "દ્રવ્ય", items: ["જીવ", "પુદગલ", "ધર્મ", "અધર્મ", "આકાશ", "કાળ"] },
+            { title: "આવશ્યક", items: ["સામાયિક", "દેવ શાસ્ત્ર ગુરુની સ્તુતિ", "જિનેન્દ્ર ભગવાનને વંદન", "સ્વાધ્યાય", "પ્રતિક્રમણ", "કાયોત્સર્ગ"] },
+            { title: "લેશ્યા", items: ["કૃષ્ણ", "નીલ", "કાપોત", "તેજો", "પદ્મ", "શુક્લ"] }
+        ],
+        7: [
+            { title: "તત્ત્વ", items: ["જીવ", "અજીવ", "આશ્રવ", "બંધ", "સંવર", "નિર્જરા", "મોક્ષ"] },
+            { title: "વ્યસન", items: ["જુગાર", "માંસભક્ષણ", "મદિરાપાન", "વેશ્યાગમન", "શિકાર", "ચોરી", "પરસ્ત્રીગમન"] }
+        ],
+        8: [
+            { title: "કર્મ", items: ["જ્ઞાનાવરણીય", "દર્શનાવરણીય", "વેદનીય", "મોહનીય", "આયુષ્ય", "નામ", "ગોત્ર", "અંતરાય"] },
+            { title: "અષ્ટ મંગલ દ્રવ્ય", items: [
+                "<b>સ્વસ્તિક / સાથિયો:</b> ચાર ગતિમાંથી મુક્તિ અને કલ્યાણનું પ્રતીક.",
+                "<b>શ્રીવત્સ:</b> તીર્થંકર ભગવાનની છાતી પરનું ચિહ્ન.",
+                "<b>નંદ્યાવર્ત:</b> નવ ખૂણાવાળો મોટો સાથિયો.",
+                "<b>વર્ધમાનક / કટોરો:</b> પ્રગતિ અને વધતી સમૃદ્ધિ સૂચવે છે.",
+                "<b>ભદ્રાસન / સિંહાસન:</b> પ્રભુના સ્થાનને દર્શાવતું પવિત્ર આસન.",
+                "<b>કળશ:</b> પૂર્ણતા અને મંગળનું પ્રતીક.",
+                "<b>મીનયુગલ / માછલીનું જોડું:</b> આધ્યાત્મિક આનંદ અને મુક્તિનું સૂચક.",
+                "<b>દર્પણ / અરીસો:</b> આત્મદર્શન અને શુદ્ધતાનું પ્રતીક."
+            ]},
+            { title: "પ્રાતિહાર્ય", items: ["અશોક વૃક્ષ", "સિંહાસન", "ત્રણ છત્ર", "ભામંડળ", "ચોસઠ ચંવર (ચામર)", "દુંદુભિ નાદ", "પુષ્પ વૃષ્ટિ", "દિવ્યધ્વનિ"] },
+            { title: "અષ્ટ પૂજા દ્રવ્ય", items: ["જળ", "ચંદન", "અક્ષત", "પુષ્પ", "નૈવેદ્ય", "દીપ", "ધૂપ", "ફળ"] },
+            { title: "સમ્યકદ્રષ્ટીના આઠ અંગ", items: ["ની:શંકિત અંગ", "નિષ્કાંક્ષિત અંગ", "નિર્વિચિકિત્સા અંગ", "અમુઢદ્રષ્ટિ અંગ", "ઉપગુહન અંગ", "સ્થિતિકરણ અંગ", "વાત્સલ્ય અંગ", "પ્રભાવના અંગ"] }
+        ],
+        9: [
+            { title: "નવદેવતા", items: ["અરિહંત", "સિદ્ધ", "આચાર્ય", "ઉપાધ્યાય", "સાધુ", "જિનધર્મ", "જિનઆગમ", "જિનપ્રતિમા", "જિનમંદિર"] },
+            { title: "નવ પદાર્થ", items: ["જીવ", "અજીવ", "આશ્રવ", "બંધ", "પુણ્ય", "પાપ", "સંવર", "નિર્જરા", "મોક્ષ"] }
+        ],
+        10: [
+            { title: "ધર્મ", items: ["ઉત્તમ ક્ષમા", "ઉત્તમ માર્દવ", "ઉત્તમ આર્જવ", "ઉત્તમ શૌચ", "ઉત્તમ સત્ય", "ઉત્તમ સંયમ", "ઉત્તમ તપ", "ઉત્તમ ત્યાગ", "ઉત્તમ આકિંચન્ય", "ઉત્તમ બ્રહ્મચર્ય"] },
+            { title: "દ્રવ્ય પ્રાણ", items: ["સ્પર્શ", "રસ", "ઘ્રાણ", "ચક્ષુ", "શ્રવણ ઇન્દ્રિય", "મનોબળ", "વચનબળ", "કાયાબળ", "શ્વાસોચ્છવાસ", "આયુષ્ય"] }
+        ],
+        11: [
+            { title: "પ્રતિમા", items: ["દર્શન પ્રતિમા — સાચું દર્શન", "વ્રત પ્રતિમા — પાંચ અણુવ્રત", "સામાયિક પ્રતિમા", "પ્રોષધોપવાસ પ્રતિમા", "સચિત્ત ત્યાગ પ્રતિમા", "રાત્રિભોજન ત્યાગ પ્રતિમા", "બ્રહ્મચર્ય પ્રતિમા", "આરંભ ત્યાગ પ્રતિમા", "પરિગ્રહ ત્યાગ પ્રતિમા", "અનુભૂતિ ત્યાગ પ્રતિમા", "ઉદ્દિષ્ટભક્ત પ્રતિમા"] }
+        ],
+        12: [
+            { title: "બાર ભાવના", items: ["અનિત્ય ભાવના", "અશરણ ભાવના", "સંસાર ભાવના", "એકત્વ ભાવના", "અન્યત્વ ભાવના", "અશુચિ ભાવના", "આશ્રવ ભાવના", "સંવર ભાવના", "નિર્જરા ભાવના", "લોક ભાવના", "બોધિદુર્લભ ભાવના", "ધર્મદુર્લભ ભાવના"] }
+        ],
+        14: [
+            { title: "માર્ગણા સ્થાન", items: ["ગતિ", "ઇન્દ્રિય", "કાયા", "योग", "વેદ", "કષાય", "જ્ઞાન", "સંયમ", "દર્શન", "લેશ્યા", "ભવ્ય", "સમ્યક્ત્વ", "સંજ્ઞી", "આહારક"] },
+            { title: "ગુણસ્થાન", items: ["મિથ્યાત્વ", "સાસાદન", "મિશ્ર", "અવિરત સમ્યગ્દૃષ્ટિ", "દેશવિરત", "પ્રમત્તવિરત", "અપ્રમત્તવિરત", "અપૂર્વકરણ", "અનિવૃત્તિકરણ", "સૂક્ષ્મસામ્પ્રાય", "ઉપશાંતમોહ", "ક્ષીણમોહ", "સયોગીકેવલી", "અયોગીકેવલી"] }
+        ],
+        20: [
+            { title: "વિહરમાન તીર્થંકર", items: ["શ્રી સીમંધરસ્વામી", "શ્રી યુગ્મંધરસ્વામી", "શ્રી બાહુસ્વામી", "શ્રી સુબાહુસ્વામી", "શ્રી સંજાતકસ્વામી", "શ્રી સ્વયંપ્રભસ્વામી", "શ્રી ઋષભાનનસ્વામી", "શ્રી અનંતવીર્યસ્વામી", "શ્રી સુરપ્રભસ્વામી", "શ્રી વિશાલકીર્તિસ્વામી", "શ્રી વજ્રધરસ્વામી", "શ્રી ચંદ્રાનનસ્વામી", "શ્રી ચંદ્રબાહુસ્વામી", "શ્રી ભુજંગમસ્વામી", "શ્રી ઈશ્વરસ્વામી", "શ્રી નેમીપ્રભસ્વામી", "શ્રી વીરસેનસ્વામી", "શ્રી મહાભદ્રસ્વામી", "શ્રી દેવયશસ્વામી", "શ્રી અજીતવીર્યસ્વામી"] }
+        ],
+        21: [
+            { title: "શ્રાવકના ગુણ", items: ["અશુદ્ર", "રૂપવાન", "શાંત", "લોકપ્રિય", "અંકુર", "પાપભીરૂ", "અશઠ", "કૃતજ્ઞ", "દયાળુ", "ક્ષમાશીલ", "ધર્મનિષ્ઠ", "પરિશ્રમી", "દાનવીર", "જ્ઞાની", "ત્યાગી", "વ્રતી", "ગુણાનુરાગી", "સત્યવાદી", "અહિંસા", "જીતેન્દ્રિય", "આરાધક"] }
+        ],
+        24: [
+            { title: "તીર્થંકર ભગવાન", items: ["શ્રી ઋષભદેવ ભગવાન", "શ્રી અજિતનાથ ભગવાન", "શ્રી સંભવનાથ ભગવાન", "શ્રી અભિનંદનસ્વામી", "શ્રી સુમતિનાથ ભગવાન", "શ્રી પદ્મપ્રભુસ્વામી", "શ્રી સુપાર્શ્વનાથ ભગવાન", "શ્રી ચંદ્રપ્રભુસ્વામી", "શ્રી સુવિધિનાથ ભગવાન", "શ્રી શીતલનાથ ભગવાન", "શ્રી શ્રેયાંસનાથ ભગવાન", "શ્રી વાસુપૂજ્યસ્વામી", "શ્રી વિમલનાથ ભગવાન", "શ્રી અનંતનાથ ભગવાન", "શ્રી ધર્મનાથ ભગવાન", "શ્રી શાંતિનાથ ભગવાન", "શ્રી કુંથુનાથ ભગવાન", "શ્રી અરનાથ ભગવાન", "શ્રી મલ્લિનાથ ભગવાન", "શ્રી મુનિસુવ્રતસ્વામી", "શ્રી નમિનાથ ભગવાન", "શ્રી નેમિનાથ ભગવાન", "શ્રી પાર્શ્વનાથ ભગવાન", "શ્રી મહાવીરસ્વામી ભગવાન"] }
+        ],
+        28: [
+            { title: "મૂલગુણ", items: ["અહિંસા", "સત્ય", "અચૌર્ય", "બ્રહ્મચર્ય", "પરિગ્રહ ત્યાગ", "ઈર્યા", "ભાષા", "એષણા", "આદાન-નિક્ષેપણ", "સ્પર્શ", "રસ", "ઘ્રાણ", "ચક્ષુ", "શ્રોત્ર", "પ્રતિષ્ઠાપન", "સામાયિક", "સ્તુતિ", "વંદના", "સ્વાધ્યાય", "પ્રતિક્રમણ", "કાયોત્સર્ગ", "પ્રત્યાખ્યાન", "અસ્નાન", "ભૂમિશયન", "દંતધાવન ત્યાગ", "એકભુક્ત", "સ્થિતિભોજન", "કેશલોચ", "નગ્નત્વ"] }
+        ],
+        47: [
+            { title: "શક્તિ", items: ["જીવિત્વ શક્તિ", "દૃષ્ટિત્વ શક્તિ", "જ્ઞાતૃત્વ શક્તિ", "જ્ઞાન શક્તિ", "દર્શન શક્તિ", "charitrya શક્તિ", "સુખ શક્તિ", "વીર્ય શક્તિ", "પ્રભુત્વ શક્તિ", "વિભુત્વ શક્તિ", "સર્વદર્શિત્વ શક્તિ", "સર્વજ્ઞાતૃત્વ શક્તિ", "સ્વાતંત્ર્ય શક્તિ", "ભૂતત્વ શક્તિ", "અભાવ શક્તિ", "અગુરુલઘુત્વ શક્તિ", "અવસ્થિત્વ શક્તિ", "નાસ્તિત્વ શક્તિ", "અસ્તિ-નાસ્તિત્વ શક્તિ", "એકત્વ શક્તિ", "અનેકત્વ શક્તિ", "નિત્ય શક્તિ", "અનિત્ય શક્તિ", "ભેદ શક્તિ", "અભેદ શક્તિ", "ભાવ શક્તિ", "સામાન્ય શક્તિ", "વિશેષ શક્તિ", "એકરૂપ શક્તિ", "અનેકરૂપ શક્તિ", "ભાવક શક્તિ", "ભાવ્ય શક્તિ", "ગ્રાહક શક્તિ", "ગ્રાહ્ય શક્તિ", "કારક શક્તિ", "કાર્ય શક્તિ", "સ્વરૂપ શક્તિ", "પરરૂપ શક્તિ", "શૂન્ય શક્તિ", "અશૂન્ય શક્તિ", "ગૂઢ શક્તિ", "અગૂઢ શક્તિ", "અસંગ શક્તિ", "સંગ શક્તિ", "સ્વયં શક્તિ", "ચિતિ શક્તિ", "પર શક્તિ"] }
+        ],
+        52: [
+            { title: "અકૃત્રિમ નંદીશ્વર જિનાલય", items: ["અંજનગિરી (૪ પર્વતો): દરેક દિશાની મધ્યમાં એક.", "દધિમુખ (૧૬ પર્વતો): દરેક અંજનગિરી પર્વતની આસપાસ ચાર.", " રતિકર (૩2 પર્વતો)"] }
+        ]
+    };
+
+    const vibrantColors = [
+        '#FF3E3E', '#FF8E00', '#FFD100', '#2ED573', '#1FA2FF', 
+        '#A55EEA', '#FF4757', '#05C46B', '#3E11F5', '#FF007F', 
+        '#00D2D3', '#FFA801', '#0575E6', '#74B9FF', '#10AC84', 
+        '#EE5253', '#5758BB', '#009432', '#ED4C67'
+    ];
+
+    let historyStack = [];
+    let currentNumber = null;
+    let currentUtterance = null;
+
+    const soundSvgIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+    `;
+
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('theme-toggle');
+        
+        body.classList.toggle('light-theme');
+        
+        if (body.classList.contains('light-theme')) {
+            btn.innerText = '☀️';
+            localStorage.setItem('jain_app_theme', 'light');
+        } else {
+            btn.innerText = '🌙';
+            localStorage.setItem('jain_app_theme', 'dark');
+        }
+    }
+
+    function loadSavedTheme() {
+        const savedTheme = localStorage.getItem('jain_app_theme');
+        const body = document.body;
+        const btn = document.getElementById('theme-toggle');
+        
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            btn.innerText = '☀️';
+        } else {
+            body.classList.remove('light-theme');
+            btn.innerText = '🌙';
+        }
+    }
+
+    function init() {
+        const grid = document.getElementById('number-grid');
+        grid.innerHTML = '';
+        
+        let colorIndex = 0;
+        Object.keys(data).forEach(num => {
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.textContent = num;
+            
+            tile.style.backgroundColor = vibrantColors[colorIndex % vibrantColors.length];
+            
+            tile.onclick = () => showMainList(num);
+            grid.appendChild(tile);
+            colorIndex++;
+        });
+    }
+
+    function switchView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        
+        const navBar = document.getElementById('nav-bar');
+        const header = document.getElementById('main-header');
+        
+        if (viewId === 'home-view') {
+            navBar.style.display = 'none';
+            header.style.display = 'block';
+        } else {
+            navBar.style.display = 'flex';
+            header.style.display = 'none';
+        }
+    }
+
+    function showMainList(num) {
+        currentNumber = num;
+        historyStack.push('home-view');
+        
+        const content = document.getElementById('main-list-content');
+        content.innerHTML = '';
+        
+        if (!data[num]) return;
+
+        data[num].forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'list-item';
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = 'list-text';
+            textSpan.innerText = item.title;
+            div.appendChild(textSpan);
+            
+            const actionsContainer = document.createElement('div');
+            actionsContainer.className = 'list-actions';
+            
+            const speakBtn = document.createElement('button');
+            speakBtn.className = 'speak-btn';
+            speakBtn.innerHTML = soundSvgIcon;
+            speakBtn.title = "સાંભળો";
+            speakBtn.onclick = (e) => {
+                e.stopPropagation();
+                speakText(item.title);
+            };
+            actionsContainer.appendChild(speakBtn);
+            
+            const arrowSpan = document.createElement('span');
+            arrowSpan.className = 'arrow-icon';
+            arrowSpan.innerText = '➔';
+            actionsContainer.appendChild(arrowSpan);
+            
+            div.appendChild(actionsContainer);
+            
+            div.onclick = () => showSublist(index);
+            content.appendChild(div);
+        });
+        
+        switchView('main-list-view');
+    }
+
+    function showSublist(index) {
+        historyStack.push('main-list-view');
+        const selectObj = data[currentNumber][index];
+        
+        document.getElementById('sublist-title').innerText = selectObj.title;
+        const ul = document.getElementById('sublist-items');
+        ul.innerHTML = '';
+        
+        selectObj.items.forEach(liText => {
+            const li = document.createElement('li');
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = 'sublist-text';
+            textSpan.innerHTML = liText;
+            li.appendChild(textSpan);
+            
+            const speakBtn = document.createElement('button');
+            speakBtn.className = 'speak-btn';
+            speakBtn.innerHTML = soundSvgIcon;
+            speakBtn.title = "સાંભળો";
+            speakBtn.onclick = (e) => {
+                e.stopPropagation();
+                speakText(textSpan.innerText);
+            };
+            li.appendChild(speakBtn);
+            
+            ul.appendChild(li);
+        });
+        
+        switchView('sublist-view');
+    }
+
+    function speakText(text) {
+        if (!window.speechSynthesis) return;
+
+        let filteredCleanText = text.replace(/<\/?[^>]+(>|$)/g, ""); 
+        filteredCleanText = filteredCleanText.replace(/[°•…\.]/g, ""); 
+        filteredCleanText = filteredCleanText.trim();
+        
+        if (!filteredCleanText) return;
+
+        window.speechSynthesis.cancel();
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+        }
+
+        currentUtterance = new SpeechSynthesisUtterance(filteredCleanText);
+        
+        const availableVoices = window.speechSynthesis.getVoices();
+        const nativeGuVoice = availableVoices.find(v => v.lang.startsWith('gu'));
+        const fallbackHiVoice = availableVoices.find(v => v.lang.startsWith('hi'));
+        
+        if (nativeGuVoice) {
+            currentUtterance.voice = nativeGuVoice;
+        } else if (fallbackHiVoice) {
+            currentUtterance.voice = fallbackHiVoice;
+        }
+        
+        currentUtterance.lang = 'gu-IN';
+        currentUtterance.rate = 0.92;
+        
+        currentUtterance.onend = () => { currentUtterance = null; };
+        currentUtterance.onerror = () => { currentUtterance = null; };
+        
+        window.speechSynthesis.speak(currentUtterance);
+    }
+
+    function goBack() {
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        if (historyStack.length > 0) {
+            const prevView = historyStack.pop();
+            switchView(prevView);
+        }
+    }
+
+    function goHome() {
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        historyStack = [];
+        currentNumber = null;
+        switchView('home-view');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        init();
+        loadSavedTheme();
+        if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+        }
+    });
+</script>
+
+</body>
+</html>
